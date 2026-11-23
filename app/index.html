@@ -3,19 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InterviewCoach: HR Interview Tips Chatbot</title>
+<title>InterviewCoach – HR Interview Tips Chatbot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#eaf0f4; --panel:#ffffff; --ink:#14213d; --muted:#5b6b82; --line:#d5dee7;
-  --brand:#0e7c86; --brand-ink:#ffffff; --user:#14213d; --user-ink:#ffffff;
-  --bot:#f3f7fa; --mark:#f2b134;
+  --bg:#eef5ff; --panel:#ffffff; --ink:#0f2a55; --muted:#5f7396; --line:#d3e2f8;
+  --brand:#1f6feb; --brand-ink:#ffffff; --user:#1f6feb; --user-ink:#ffffff;
+  --bot:#f1f7ff; --mark:#1f6feb;
   --head:'Bricolage Grotesque',system-ui,sans-serif; --body:'Source Sans 3',system-ui,sans-serif;
-}
-@media (prefers-color-scheme:dark){
-  :root{--bg:#0d1520;--panel:#142030;--ink:#e8eef5;--muted:#9fb0c4;--line:#243449;
-        --brand:#35b8c2;--brand-ink:#0d1520;--user:#35b8c2;--user-ink:#0d1520;--bot:#1b2a3d}
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
@@ -28,16 +24,16 @@ aside p{margin:0;color:var(--muted);font-size:.95rem}
 .topics{display:flex;flex-direction:column;gap:8px}
 .topics h2{font-family:var(--head);font-size:.95rem;margin:4px 0 2px;color:var(--muted);font-weight:500}
 .topic{all:unset;box-sizing:border-box;cursor:pointer;padding:10px 12px;border:1px solid var(--line);
-  border-radius:10px;font-size:.98rem;border-left:4px solid var(--mark)}
+  border-radius:10px;font-size:.98rem;border-left:4px solid var(--brand)}
 .topic:hover{background:var(--bot)}
 .topic:focus-visible,button:focus-visible,textarea:focus-visible{outline:3px solid var(--brand);outline-offset:2px}
 .note{margin-top:auto;font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
 main{display:flex;flex-direction:column;overflow:hidden}
-header{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+header{padding:16px 22px;background:linear-gradient(180deg,#f7faff,#fff);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
 header strong{font-family:var(--head);font-size:1.1rem}
 .status{font-size:.85rem;color:var(--muted);display:flex;align-items:center;gap:6px}
 .dot{width:9px;height:9px;border-radius:50%;background:#2ca86b}
-.dot.demo{background:var(--mark)}
+.dot.demo{background:#f2b134}
 #log{flex:1;overflow:auto;padding:22px;display:flex;flex-direction:column;gap:14px}
 .msg{max-width:min(640px,88%);padding:12px 16px;border-radius:14px;white-space:pre-wrap;word-wrap:break-word}
 .msg.bot{background:var(--bot);border-bottom-left-radius:4px;align-self:flex-start}
