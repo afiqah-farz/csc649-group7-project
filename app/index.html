@@ -64,17 +64,17 @@ textarea{flex:1;resize:none;font:inherit;color:var(--ink);background:var(--bot);
   <aside>
     <div>
       <h1>InterviewCoach</h1>
-      <p>Ask for HR interview tips: preparing, answering, and following up.</p>
+      <p>Ask about IT interview questions and how to answer them well.</p>
     </div>
     <div class="topics" id="topics">
       <h2>Start with a topic</h2>
-      <button class="topic" type="button">How do I prepare for a job interview?</button>
-      <button class="topic" type="button">How do I answer “Tell me about yourself”?</button>
-      <button class="topic" type="button">What is the STAR method?</button>
-      <button class="topic" type="button">What should I wear to an interview?</button>
-      <button class="topic" type="button">How do I answer “What is your weakness?”</button>
-      <button class="topic" type="button">What questions should I ask the interviewer?</button>
-      <button class="topic" type="button">How do I follow up after an interview?</button>
+      <button class="topic" type="button">How do you deal with deadlines?</button>
+      <button class="topic" type="button">What is your troubleshooting process?</button>
+      <button class="topic" type="button">Why did you decide to go into IT?</button>
+      <button class="topic" type="button">How do you stay up to date with new technology?</button>
+      <button class="topic" type="button">Tell me about a time you could not solve a problem. What did you do?</button>
+      <button class="topic" type="button">How would you explain a technical concept to someone without technical knowledge?</button>
+      <button class="topic" type="button">How would you make sure a computer network is secure?</button>
     </div>
     <div class="note">Tips are general guidance only. Each company hires differently, so check the job advert and ask the recruiter when unsure.</div>
   </aside>
@@ -82,7 +82,7 @@ textarea{flex:1;resize:none;font:inherit;color:var(--ink);background:var(--bot);
   <main>
     <header>
       <strong>Interview tips chat</strong>
-      <span class="status"><span class="dot" id="dot"></span><span id="statusText">Connecting…</span>
+      <span class="status"><span class="dot" id="dot"></span><span id="statusText">Loading…</span>
         <button id="clear" type="button">New chat</button></span>
     </header>
     <div id="log" role="log" aria-live="polite"></div>
@@ -94,53 +94,72 @@ textarea{flex:1;resize:none;font:inherit;color:var(--ink);background:var(--bot);
 </div>
 
 <script>
-const API_URL = "/api/chat";
-const WELCOME = "Hi! I'm InterviewCoach. Ask me how to prepare, answer common HR questions, or follow up after an interview. Pick a topic on the left or type your own question.";
 
-const DEMO = [
-  {k:["prepare","preparation"], a:"Research the company, re-read the job advert, and match your skills to it. Prepare 3 stories from your experience and practise answering out loud. Plan your route and arrive 10–15 minutes early."},
-  {k:["star"], a:"STAR keeps answers structured:\nSituation – set the scene.\nTask – your responsibility.\nAction – what you did.\nResult – the outcome, with numbers if possible."},
-  {k:["wear","dress"], a:"Dress one step above the company's everyday dress code. Neat, clean and comfortable business attire is a safe choice."},
-  {k:["yourself"], a:"Use a short present–past–future format: your current role or studies, relevant experience, and why this job is your next step. Aim for about one minute."}
-];
-const FALLBACK = "I can only help with interview tips. Try asking about preparation, common questions, the STAR method, dress code, or follow-up emails.";
+const DATA = [{"q": "Tell me about a recent project you are proud of and your role in it.", "a": "Choose a project where you can clearly explain your own part, such as a final year project, an internship task or a personal app. Describe the problem, the technologies you used, what you personally did, and the result. Personal projects outside class are a big plus because they show passion for IT."}, {"q": "Tell me about a time you could not solve a problem. What did you do?", "a": "Be honest about the situation and what blocked you. Then explain your next steps, such as searching documentation, asking a senior or teammate, or escalating the issue properly. Interviewers want to see that you stay calm, find help, and learn from it."}, {"q": "How do you deal with deadlines?", "a": "Explain how you plan your work, for example by breaking a project into small tasks with their own dates and checking your progress often. Give an example of a tight deadline you met. If a deadline was ever missed, explain how you informed the team early and what you changed afterwards."}, {"q": "What preparations do you do before starting a project?", "a": "Explain your steps, such as understanding the requirements, asking questions, researching suitable tools, planning tasks and setting up version control like Git. Mention whether you plan alone or with the team. This shows you are organised and do not just jump straight into coding."}, {"q": "Why did you decide to go into IT?", "a": "Explain what genuinely attracts you to IT, such as solving problems, building things with code, or always learning something new. Give a short real example, like the first program or website you made. Then link that interest to why you want this particular role."}, {"q": "How do you stay up to date with new technology?", "a": "Mention the real ways you keep learning, such as online courses, tech blogs, YouTube channels, newsletters, podcasts or tech communities. Give one recent thing you learned. This shows you are curious and will keep improving."}, {"q": "What would you do if you were in charge of the whole organisation’s technology?", "a": "Show that you can think beyond your own tasks. Share a simple vision, such as improving security, moving systems to the cloud or automating manual work, and explain how you would plan it step by step. This shows leadership potential and a growth mindset."}, {"q": "What do you think is the most pressing problem in tech today and how would you fix it?", "a": "Pick one issue you understand well, such as cybersecurity threats, data privacy or the misuse of AI. Explain why it matters to people and businesses, then suggest a clear and realistic solution. This shows big-picture thinking and problem-solving skills."}, {"q": "What is your troubleshooting process?", "a": "Use clear steps: first identify the problem and ask questions, then find the cause, test a possible fix, confirm the problem is solved, and finally document what happened. Give a simple example, such as fixing a user’s internet connection."}, {"q": "What is an IP address?", "a": "An IP address is a unique number given to every device on a network, such as a laptop or phone, like a home address for computers. It lets devices find and send data to each other over the internet or a local network. An IPv4 address looks like 192.168.1.10."}, {"q": "Are you currently working on any personal projects?", "a": "Talk about a project you built in your own time, such as a website, mobile app, game or small tool, and share the GitHub link if you have one. Explain what it does, the technologies you used, and what you learned from it. Employers like personal projects because they show you enjoy coding outside of work or class."}, {"q": "How would you explain a technical concept to someone without technical knowledge?", "a": "Avoid jargon and use simple everyday comparisons, such as describing DNS as the internet’s phone book. Check that the person understands by asking questions, and use pictures, diagrams or mock-ups if they help. Give an example, such as explaining your project to a lecturer or helping a family member with their phone."}, {"q": "What is a CPU?", "a": "The CPU, or Central Processing Unit, is the main chip that processes instructions in a computer, often called its brain. It runs programs by doing calculations and controlling other parts. Its speed and number of cores affect how fast a computer can work."}, {"q": "How would you move a file using the command line?", "a": "On Windows Command Prompt, use the move command, for example: move report.txt D:\\backup. On Linux or macOS, use the mv command, for example: mv report.txt /home/user/backup/. If you are unsure in an interview, explain how you would check the help or documentation."}, {"q": "How familiar are you with different operating systems?", "a": "Check the job description to see which systems they use, such as Windows, Linux or macOS. Be honest about which ones you have used and for what, such as Linux for servers or Windows for user support. Show that you are willing to learn any system you know less about."}, {"q": "How would you make sure a computer network is secure?", "a": "Mention key tools such as firewalls, secure router settings, VPNs and antivirus software. Add good habits like strong passwords, multi-factor authentication, regular software updates and backups. If you have any real security experience, share it as an example."}, {"q": "What software or technologies do you use now, which have you learned before, and how did you learn them?", "a": "Be honest about the tools you know, such as Python, Java, SQL, Git or a cloud platform, and say where you learned them, for example in university courses, online courses or your own projects. Mention any certifications or training you have done. Most importantly, show that you can learn and apply new tools quickly."}, {"q": "How does your IT work fit into your company’s overall goals?", "a": "Show that you understand IT supports the whole company, not just your own tasks. Give an example, such as a system you built that saves another department time or keeps customer data safe. Explain that you work with other departments to understand what they need, so your work supports the company’s goals."}];
+const WELCOME = "Hi! I'm InterviewCoach. Ask me about IT interview questions and how to answer them well. Pick a topic on the left or type your own question.";
+const FALLBACK = "I can only help with interview tips. Try asking about deadlines, troubleshooting, handling problems, personal projects or basic IT questions.";
+const MIN_SCORE = 0.35;
+const STOP = new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what how why when which who would could should can will about tell if it its this that as at by from into than then so not no any have has had today now".split(" "));
 
+function tokens(t){
+  return (t.toLowerCase().match(/[a-z0-9]+/g) || [])
+    .filter(w => w.length > 1 && !STOP.has(w))
+    .map(w => (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) ? w.slice(0,-1) : w);
+}
+const docs = DATA.map(d => tokens(d.q + " " + d.q + " " + d.a));
+const df = {};
+docs.forEach(d => new Set(d).forEach(w => df[w] = (df[w]||0) + 1));
+const idf = {};
+Object.keys(df).forEach(w => idf[w] = Math.log((1 + docs.length) / (1 + df[w])) + 1);
+function vec(toks){
+  const tf = {}; toks.forEach(w => tf[w] = (tf[w]||0) + 1);
+  const v = {}; let n = 0;
+  for (const w in tf){ if (idf[w]){ v[w] = tf[w] * idf[w]; n += v[w]*v[w]; } }
+  n = Math.sqrt(n) || 1;
+  for (const w in v) v[w] /= n;
+  return v;
+}
+const vecs = docs.map(vec);
+function search(query){
+  const qv = vec(tokens(query));
+  let best = {score:0, i:-1};
+  vecs.forEach((dv, i) => {
+    let s = 0; for (const w in qv) if (dv[w]) s += qv[w]*dv[w];
+    if (s > best.score) best = {score:s, i};
+  });
+  return best;
+}
+
+async function callLLM(question, retrieved){ return null; }
+
+async function getAnswer(q){
+  const hit = search(q);
+  if (hit.i < 0 || hit.score < MIN_SCORE) return {answer: FALLBACK};
+  const row = DATA[hit.i];
+  let text = null;
+  try { text = await callLLM(q, row); } catch(e){}
+  return {answer: text || row.a, source: row.q};
+}
+
+/* ---------- Interface ---------- */
 const log = document.getElementById("log"), form = document.getElementById("form"),
       input = document.getElementById("input"), send = document.getElementById("send"),
       dot = document.getElementById("dot"), statusText = document.getElementById("statusText");
-let history = [];
+dot.className = "dot"; statusText.textContent = "Ready · " + DATA.length + " Q&A loaded";
 
 function add(role, text, source){
   const d = document.createElement("div");
-  d.className = "msg " + role;
-  d.textContent = text;
+  d.className = "msg " + role; d.textContent = text;
   if (source){ const s = document.createElement("span"); s.className = "src"; s.textContent = "Based on: " + source; d.appendChild(s); }
   log.appendChild(d); log.scrollTop = log.scrollHeight; return d;
-}
-function setStatus(demo){
-  dot.className = "dot" + (demo ? " demo" : "");
-  statusText.textContent = demo ? "Demo mode (no backend)" : "Connected";
-}
-function demoAnswer(q){
-  q = q.toLowerCase();
-  const hit = DEMO.find(x => x.k.some(w => q.includes(w)));
-  return {answer: hit ? hit.a : FALLBACK};
 }
 async function ask(q){
   const typing = add("bot", "");
   typing.innerHTML = '<span class="typing" aria-label="Typing"><i></i><i></i><i></i></span>';
   send.disabled = true;
-  let data;
-  try{
-    const r = await fetch(API_URL, {method:"POST", headers:{"Content-Type":"application/json"},
-      body: JSON.stringify({message:q, history})});
-    if(!r.ok) throw new Error(r.status);
-    data = await r.json(); setStatus(false);
-  }catch(e){ data = demoAnswer(q); setStatus(true); }
-  typing.remove();
-  add("bot", data.answer, data.source);
-  history.push({role:"user",content:q},{role:"assistant",content:data.answer});
-  history = history.slice(-10);
+  await new Promise(r => setTimeout(r, 400));
+  const data = await getAnswer(q);
+  typing.remove(); add("bot", data.answer, data.source);
   send.disabled = false; input.focus();
 }
 form.addEventListener("submit", e => {
@@ -153,9 +172,8 @@ input.addEventListener("input", () => { input.style.height = "auto"; input.style
 document.getElementById("topics").addEventListener("click", e => {
   if(e.target.classList.contains("topic")){ input.value = e.target.textContent; form.requestSubmit(); }
 });
-document.getElementById("clear").addEventListener("click", () => { log.innerHTML = ""; history = []; add("bot", WELCOME); });
+document.getElementById("clear").addEventListener("click", () => { log.innerHTML = ""; add("bot", WELCOME); });
 add("bot", WELCOME);
-fetch(API_URL, {method:"OPTIONS"}).then(()=>setStatus(false)).catch(()=>setStatus(true));
 </script>
 </body>
 </html>
