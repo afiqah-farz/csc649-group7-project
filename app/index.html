@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InterviewCoach – HR Interview Tips Chatbot</title>
+<title>InterviewCoach: HR Interview Tips Chatbot</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
 <style>
@@ -98,13 +98,9 @@ textarea{flex:1;resize:none;font:inherit;color:var(--ink);background:var(--bot);
 </div>
 
 <script>
-/* ===== Settings (Backend Developer: match this to your endpoint) =====
-   POST /api/chat  body: {message, history:[{role,content}]}
-   reply:          {answer: "text", source: "optional matched dataset question"} */
 const API_URL = "/api/chat";
 const WELCOME = "Hi! I'm InterviewCoach. Ask me how to prepare, answer common HR questions, or follow up after an interview. Pick a topic on the left or type your own question.";
 
-/* Demo answers are used only when the backend is not reachable (UI testing). */
 const DEMO = [
   {k:["prepare","preparation"], a:"Research the company, re-read the job advert, and match your skills to it. Prepare 3 stories from your experience and practise answering out loud. Plan your route and arrive 10–15 minutes early."},
   {k:["star"], a:"STAR keeps answers structured:\nSituation – set the scene.\nTask – your responsibility.\nAction – what you did.\nResult – the outcome, with numbers if possible."},
