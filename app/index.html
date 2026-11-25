@@ -1,385 +1,573 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>InterviewCoach – HR Interview Tips</title>
-<style>
-:root{
-  --ribbon:#185abd; --ribbon2:#124a9c; --bg:#f3f7fc; --panel:#ffffff; --side:#eaf1fb;
-  --line:#d6e2f3; --ink:#12284c; --muted:#5d7090; --accent:#2b7cd3; --userbg:#dce9fb; --err:#c62828;
-  --font:'Segoe UI',system-ui,-apple-system,Roboto,Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{font-family:var(--font);font-size:16px;line-height:1.55;color:var(--ink);background:var(--bg)}
-[hidden]{display:none!important}
-button{font:inherit;cursor:pointer}
-:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>InterviewCoach – Glassmorphism HR Tips</title>
+  <style>
+    :root {
+      --glass-bg: rgba(255, 255, 255, 0.12);
+      --glass-bg-hover: rgba(255, 255, 255, 0.2);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --glass-border-light: rgba(255, 255, 255, 0.4);
+      --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      --glass-blur: blur(16px);
+      --glass-blur-heavy: blur(24px);
+      
+      
+      --text-primary: #ffffff;
+      --text-secondary: rgba(255, 255, 255, 0.75);
+      --text-muted: rgba(255, 255, 255, 0.5);
+      
+      
+      --accent: #d946ef;
+      --accent-hover: #e879f9;
+      --accent-glow: rgba(217, 70, 239, 0.4);
+      
+      --font: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    }
 
-/* ---------- Auth ---------- */
-.auth{min-height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,var(--ribbon) 0 220px,var(--bg) 220px)}
-.authwrap{margin:auto;width:100%;max-width:420px;padding:24px 16px}
-.brand{display:flex;align-items:center;gap:12px;color:#fff;margin-bottom:18px}
-.brand h1{margin:0;font-size:1.6rem;font-weight:600}
-.brand small{display:block;opacity:.85;font-size:.9rem}
-.logo{width:42px;height:42px;border-radius:10px;background:#fff;display:grid;place-items:center;flex:none}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;box-shadow:0 8px 24px rgba(18,74,156,.12)}
-.tabs{display:flex;border-bottom:1px solid var(--line);margin-bottom:16px}
-.tab{flex:1;background:none;border:0;padding:10px;color:var(--muted);font-weight:600;border-bottom:3px solid transparent}
-.tab[aria-selected=true]{color:var(--ribbon);border-color:var(--ribbon)}
-label{display:block;font-size:.88rem;font-weight:600;margin:12px 0 4px}
-input[type=text],input[type=password]{width:100%;font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:8px;color:var(--ink);background:#fff}
-.primary{width:100%;margin-top:18px;background:var(--ribbon);color:#fff;border:0;border-radius:8px;padding:11px;font-weight:600}
-.primary:hover{background:var(--ribbon2)}
-.msg-err{color:var(--err);font-size:.9rem;min-height:1.3em;margin:10px 0 0}
-.fine{font-size:.8rem;color:var(--muted);margin:14px 0 0}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--font); font-size: 16px; line-height: 1.55; color: var(--text-primary); background-color: #0b0f1a; }
 
-/* ---------- App shell ---------- */
-#app{height:100%;display:flex;flex-direction:column}
-.ribbon{background:var(--ribbon);color:#fff;display:flex;align-items:center;gap:12px;padding:8px 16px;flex:none}
-.ribbon .logo{width:32px;height:32px;border-radius:8px}
-.ribbon b{font-weight:600;font-size:1.05rem}
-.ribbon .sp{flex:1}
-.chip{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 12px;font-size:.9rem}
-.rbtn{background:#fff;color:var(--ribbon);border:0;border-radius:8px;padding:6px 14px;font-weight:600}
-.rbtn:hover{background:#e6efff}
-.ghost{background:rgba(255,255,255,.16);color:#fff}.ghost:hover{background:rgba(255,255,255,.3)}
-dialog{border:1px solid var(--line);border-radius:12px;padding:22px;max-width:440px;width:92%;color:var(--ink);font-family:var(--font)}
-dialog::backdrop{background:rgba(18,40,76,.45)}
-dialog h3{margin:0 0 6px}dialog .row2{display:flex;gap:8px;margin-top:16px}
-.sec{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px;font-weight:600;flex:1}
-.on-badge{font-size:.8rem;color:#1b7f3b;font-weight:600}
-#menu{display:none;background:none;border:0;color:#fff;font-size:1.5rem;padding:0 4px}
-.body{flex:1;display:flex;min-height:0}
-aside{width:280px;background:var(--side);border-right:1px solid var(--line);display:flex;flex-direction:column;flex:none}
-#newChat{margin:14px;padding:10px 12px;background:#fff;border:1px solid var(--line);border-radius:10px;color:var(--ribbon);font-weight:600;text-align:left}
-#newChat:hover{border-color:var(--accent)}
-.htitle{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:6px 18px}
-#hist{list-style:none;margin:0;padding:0 8px;overflow:auto;flex:1}
-#hist li{display:flex;align-items:center;border-radius:8px}
-#hist li:hover,#hist li.on{background:#d9e7fa}
-#hist .t{flex:1;text-align:left;background:none;border:0;color:var(--ink);padding:9px 10px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.95rem}
-#hist .x{background:none;border:0;color:var(--muted);padding:6px 10px;visibility:hidden}
-#hist li:hover .x,#hist li.on .x{visibility:visible}
-.empty-h{color:var(--muted);font-size:.9rem;padding:8px 12px}
-.sidefoot{border-top:1px solid var(--line);padding:12px 14px;display:flex;align-items:center;gap:10px}
-.av{width:34px;height:34px;border-radius:50%;background:var(--ribbon);color:#fff;display:grid;place-items:center;font-weight:600;flex:none}
-.sidefoot .n{flex:1;min-width:0;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sidefoot button{background:none;border:1px solid var(--line);border-radius:8px;padding:5px 10px;color:var(--ink)}
+    /* Video Background */
+    .video-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: 0; pointer-events: none; }
+    .video-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(135deg, rgba(15, 23, 42, 0.6), rgba(88, 28, 135, 0.4)); z-index: 1; pointer-events: none; }
 
-main{flex:1;display:flex;flex-direction:column;min-width:0;background:var(--panel)}
-#log{flex:1;overflow:auto;padding:24px 16px}
-.col{max-width:760px;margin:0 auto}
-.row{display:flex;gap:12px;margin-bottom:22px}
-.row .bav{width:34px;height:34px;border-radius:8px;background:var(--ribbon);flex:none;display:grid;place-items:center}
-.row .txt{white-space:pre-wrap;word-wrap:break-word;padding-top:4px;min-width:0}
-.row.user{justify-content:flex-end}
-.row.user .txt{background:var(--userbg);border-radius:14px 14px 4px 14px;padding:10px 14px;max-width:80%}
-.src{display:block;margin-top:8px;font-size:.82rem;color:var(--muted)}
-.welcome{text-align:center;padding-top:6vh}
-.welcome .logo{margin:0 auto 14px;width:56px;height:56px;background:var(--ribbon)}
-.welcome h2{margin:0 0 4px;font-size:1.7rem;font-weight:600}
-.welcome p{margin:0 0 24px;color:var(--muted)}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;text-align:left}
-.cardbtn{background:#fff;border:1px solid var(--line);border-left:4px solid var(--ribbon);border-radius:10px;padding:12px 14px;color:var(--ink)}
-.cardbtn:hover{background:var(--bg);border-color:var(--accent)}
-.typing{display:inline-flex;gap:4px;padding-top:8px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:b 1s infinite}
-.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
-@keyframes b{0%,80%,100%{opacity:.25}40%{opacity:1}}
-.composer{padding:10px 16px 14px}
-#form{max-width:760px;margin:0 auto;display:flex;align-items:flex-end;gap:8px;border:1px solid var(--line);background:var(--bg);border-radius:16px;padding:8px 8px 8px 16px}
-#form:focus-within{border-color:var(--accent);background:#fff}
-textarea{flex:1;resize:none;border:0;background:none;font:inherit;color:var(--ink);max-height:140px;padding:6px 0;outline:none}
-#send{width:38px;height:38px;border-radius:10px;border:0;background:var(--ribbon);color:#fff;font-size:1.1rem}
-#send:disabled{opacity:.45;cursor:default}
-.disc{max-width:760px;margin:8px auto 0;text-align:center;font-size:.78rem;color:var(--muted)}
+    
+    #app { position: relative; z-index: 2; height: 100vh; display: flex; flex-direction: column; background: transparent; }
 
-@media (max-width:820px){
-  #menu{display:block}
-  aside{position:fixed;z-index:20;top:48px;bottom:0;left:0;transform:translateX(-100%);transition:transform .2s}
-  aside.open{transform:none;box-shadow:4px 0 20px rgba(0,0,0,.2)}
-  .cards{grid-template-columns:1fr}
-  .chip{display:none}
-}
-@media (prefers-reduced-motion:reduce){aside{transition:none}.typing i{animation:none}}
-</style>
+    .ribbon {
+      background: var(--glass-bg); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+      border-bottom: 1px solid var(--glass-border); color: var(--text-primary);
+      display: flex; align-items: center; gap: 12px; padding: 10px 20px; flex: none; z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* HEADER LOGO */
+    .ribbon .logo { 
+      width: 44px; 
+      height: 44px; 
+      border-radius: 10px; 
+      background: transparent;
+      border: none; 
+      display: grid; 
+      place-items: center; 
+      overflow: hidden; 
+      padding: 0;
+    }
+    .ribbon .logo img { 
+      width: 160%; 
+      height: 160%; 
+      object-fit: contain; 
+      margin: -30%; 
+    }
+    
+    .ribbon b { font-weight: 600; font-size: 1.1rem; letter-spacing: 0.5px; }
+    .ribbon .sp { flex: 1; }
+    
+    .rbtn {
+      background: var(--glass-bg); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      color: var(--text-primary); border: 1px solid var(--glass-border); border-radius: 10px; padding: 7px 16px;
+      font-weight: 600; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(0,0,0,0.1); cursor: pointer;
+    }
+    .rbtn:hover { background: var(--glass-bg-hover); border-color: var(--glass-border-light); transform: translateY(-1px); }
+    .ghost { background: transparent; }
+
+    dialog {
+      background: rgba(20, 25, 45, 0.6); backdrop-filter: var(--glass-blur-heavy); -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border-light); border-radius: 20px; padding: 26px; max-width: 460px; width: 92%;
+      color: var(--text-primary); font-family: var(--font); box-shadow: var(--glass-shadow);
+    }
+    dialog::backdrop { background: rgba(5, 10, 20, 0.5); backdrop-filter: blur(5px); }
+    dialog h3 { margin: 0 0 8px; font-weight: 600; }
+    dialog .row2 { display: flex; gap: 10px; margin-top: 20px; }
+    
+    .sec { background: var(--glass-bg); backdrop-filter: blur(4px); color: var(--text-primary); border: 1px solid var(--glass-border); border-radius: 10px; padding: 11px; font-weight: 600; flex: 1; transition: background 0.2s; cursor: pointer; }
+    .sec:hover { background: var(--glass-bg-hover); }
+
+    #menu { display: none; background: none; border: 0; color: #fff; font-size: 1.5rem; padding: 0 4px; cursor: pointer; }
+
+    .body { flex: 1; display: flex; min-height: 0; padding: 16px; gap: 16px; }
+
+    /* Sidebar */
+    aside {
+      width: 290px; background: var(--glass-bg); backdrop-filter: var(--glass-blur-heavy); -webkit-backdrop-filter: var(--glass-blur-heavy);
+      border: 1px solid var(--glass-border); border-radius: 20px; display: flex; flex-direction: column; flex: none;
+      color: var(--text-primary); box-shadow: var(--glass-shadow); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow: hidden;
+    }
+    #newChat { margin: 16px; padding: 12px 16px; background: var(--glass-bg); backdrop-filter: blur(6px); border: 1px solid var(--glass-border-light); border-radius: 12px; color: #fff; font-weight: 600; text-align: left; transition: all 0.2s ease; box-shadow: 0 4px 12px rgba(0,0,0,0.1); cursor: pointer; }
+    #newChat:hover { background: rgba(217, 70, 239, 0.25); border-color: var(--accent); box-shadow: 0 0 15px var(--accent-glow); }
+
+    .htitle { font-size: .75rem; text-transform: uppercase; letter-spacing: .1em; color: var(--text-secondary); padding: 8px 20px; font-weight: 700; }
+    #hist { list-style: none; margin: 0; padding: 0 10px; overflow-y: auto; flex: 1; }
+    #hist li { display: flex; align-items: center; border-radius: 10px; margin-bottom: 4px; transition: background 0.2s; }
+    #hist li:hover, #hist li.on { background: var(--glass-bg-hover); border: 1px solid rgba(255,255,255,0.1); }
+    #hist .t { flex: 1; text-align: left; background: none; border: 0; color: #fff; padding: 10px 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .95rem; font-weight: 500; border-radius: 10px; cursor: pointer; }
+    #hist .x { background: none; border: 0; color: var(--text-muted); padding: 6px 12px; visibility: hidden; font-size: 1rem; transition: color 0.2s; cursor: pointer; }
+    #hist li:hover .x, #hist li.on .x { visibility: visible; }
+    #hist .x:hover { color: #fca5a5; }
+    .empty-h { color: var(--text-secondary); font-size: .9rem; padding: 12px 16px; font-style: italic; }
+    .sidefoot { border-top: 1px solid var(--glass-border); padding: 14px 18px; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: var(--text-secondary); }
+
+    /* Main Chat Area */
+    main { flex: 1; display: flex; flex-direction: column; min-width: 0; background: var(--glass-bg); backdrop-filter: var(--glass-blur-heavy); -webkit-backdrop-filter: var(--glass-blur-heavy); border: 1px solid var(--glass-border); border-radius: 20px; box-shadow: var(--glass-shadow); overflow: hidden; }
+    #log { flex: 1; overflow-y: auto; padding: 24px 20px; scroll-behavior: smooth; }
+    .col { max-width: 780px; margin: 0 auto; }
+
+    .row { display: flex; gap: 14px; margin-bottom: 24px; align-items: flex-start; }
+    
+    /* CHAT AVATAR */
+    .row .bav { 
+      width: 40px; 
+      height: 40px; 
+      border-radius: 10px; 
+      background: transparent; 
+      border: none; 
+      flex: none; 
+      display: grid; 
+      place-items: center; 
+      overflow: hidden; 
+      padding: 0;
+    }
+    .row .bav img { 
+      width: 160%; 
+      height: 160%; 
+      object-fit: contain; 
+      margin: -30%; 
+    }
+    
+    .row .txt { white-space: pre-wrap; word-wrap: break-word; padding: 14px 20px; min-width: 0; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-radius: 20px 20px 20px 4px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); color: #fff; }
+    .row.user { justify-content: flex-end; }
+    .row.user .txt { background: linear-gradient(135deg, rgba(217, 70, 239, 0.3), rgba(139, 92, 246, 0.3)); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 20px 20px 4px 20px; max-width: 80%; }
+    .src { display: block; margin-top: 8px; font-size: .8rem; color: var(--text-secondary); opacity: 0.85; font-style: italic; }
+
+    /* Welcome */
+    .welcome { text-align: center; padding-top: 6vh; }
+    
+        /* WELCOME SCREEN LARGE LOGO */
+    .welcome .logo { 
+      margin: 0 auto 24px; 
+      width: 150px; 
+      height: 150px; 
+      background: transparent; 
+      border: none; 
+      display: grid; 
+      place-items: center; 
+      overflow: visible; /* Changed from hidden to visible */
+      padding: 0;
+      filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5)); 
+    }
+    .welcome .logo img { 
+      width: 100%; 
+      height: 100%; 
+      object-fit: contain; 
+      transform: scale(1.3); /* Scaled up without clipping the edges */
+    }
+    
+    .welcome h2 { margin: 0 0 8px; font-size: 2rem; font-weight: 600; letter-spacing: -0.5px; }
+    .welcome p { margin: 0 0 32px; color: var(--text-secondary); font-size: 1.1rem; }
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; text-align: left; }
+    .cardbtn { background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid var(--glass-border); border-left: 4px solid var(--accent); border-radius: 16px; padding: 16px 20px; color: #fff; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); cursor: pointer; }
+    .cardbtn:hover { background: var(--glass-bg-hover); transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 25px rgba(217, 70, 239, 0.2); }
+
+    /* Typing */
+    .typing { display: inline-flex; gap: 5px; padding: 8px 0; }
+    .typing i { width: 8px; height: 8px; border-radius: 50%; background: var(--text-secondary); animation: bounce 1.2s infinite; }
+    .typing i:nth-child(2) { animation-delay: .18s; }
+    .typing i:nth-child(3) { animation-delay: .36s; }
+    @keyframes bounce { 0%, 80%, 100% { opacity: .3; transform: translateY(0); } 40% { opacity: 1; transform: translateY(-4px); } }
+
+    /* Composer */
+    .composer { padding: 16px 20px 20px; background: transparent; }
+    #form { max-width: 780px; margin: 0 auto; display: flex; align-items: flex-end; gap: 10px; border: 1px solid var(--glass-border); background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 24px; padding: 10px 10px 10px 20px; box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2); transition: border-color 0.2s, background 0.2s; }
+    #form:focus-within { border-color: var(--accent); background: rgba(255, 255, 255, 0.12); }
+    textarea { flex: 1; resize: none; border: 0; background: none; font: inherit; color: #fff; max-height: 140px; padding: 8px 0; outline: none; font-size: 1rem; }
+    textarea::placeholder { color: var(--text-muted); }
+    #send { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--glass-border-light); background: linear-gradient(135deg, rgba(217, 70, 239, 0.8), rgba(139, 92, 246, 0.8)); backdrop-filter: blur(6px); color: #fff; font-size: 1.2rem; transition: all 0.2s ease; display: grid; place-items: center; box-shadow: 0 4px 12px rgba(217, 70, 239, 0.3); cursor: pointer; }
+    #send:hover:not(:disabled) { transform: scale(1.05) rotate(-5deg); box-shadow: 0 6px 16px rgba(217, 70, 239, 0.5); }
+    #send:disabled { opacity: .4; cursor: default; background: var(--glass-bg); box-shadow: none; }
+    .disc { max-width: 780px; margin: 12px auto 0; text-align: center; font-size: .78rem; color: var(--text-secondary); }
+
+    label { display: block; font-size: .85rem; font-weight: 600; margin: 14px 0 6px; color: var(--text-secondary); }
+    input[type=text], input[type=password] { width: 100%; font: inherit; padding: 12px 16px; border: 1px solid var(--glass-border); border-radius: 12px; color: #fff; background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); transition: border 0.2s, background 0.2s; }
+    input[type=text]::placeholder, input[type=password]::placeholder { color: var(--text-muted); }
+    input:focus { border-color: var(--accent); background: rgba(255, 255, 255, 0.12); outline: none; box-shadow: 0 0 10px var(--accent-glow); }
+    .primary { width: 100%; margin-top: 20px; background: linear-gradient(135deg, rgba(217, 70, 239, 0.8), rgba(139, 92, 246, 0.8)); backdrop-filter: blur(4px); color: #fff; border: 1px solid var(--glass-border-light); border-radius: 12px; padding: 12px; font-weight: 600; transition: all 0.2s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; }
+    .primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(217, 70, 239, 0.4); }
+    .msg-err { color: #fca5a5; font-size: .9rem; min-height: 1.3em; margin: 10px 0 0; }
+    .fine { font-size: .8rem; color: var(--text-secondary); margin: 14px 0 0; line-height: 1.4; }
+
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.02); }
+    ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+    @media (max-width: 820px) {
+      #menu { display: block; }
+      .body { padding: 10px; gap: 10px; }
+      aside { position: fixed; z-index: 20; top: 70px; bottom: 10px; left: 10px; transform: translateX(-120%); background: rgba(15, 20, 35, 0.85); }
+      aside.open { transform: none; }
+      .cards { grid-template-columns: 1fr; }
+      .welcome h2 { font-size: 1.6rem; }
+      .row.user .txt { max-width: 90%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      aside { transition: none; }
+      .typing i { animation: none; }
+      .cardbtn:hover { transform: none; }
+      #send:hover:not(:disabled) { transform: none; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ============ LOGIN / SIGN UP ============ -->
-<section class="auth" id="auth">
-  <div class="authwrap">
-    <div class="brand">
-      <div class="logo"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#185abd" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
-      <div><h1>InterviewCoach</h1><small>HR interview tips assistant</small></div>
-    </div>
-    <div class="card">
-      <div class="tabs" role="tablist">
-        <button class="tab" id="tabLogin" role="tab" aria-selected="true">Log in</button>
-        <button class="tab" id="tabSignup" role="tab" aria-selected="false">Sign up</button>
+  <video class="video-bg" autoplay loop muted playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%230f172a'/%3E%3Cstop offset='50%25' style='stop-color:%23581c87'/%3E%3Cstop offset='100%25' style='stop-color:%230f172a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='1920' height='1080' fill='url(%23g)'/%3E%3C/svg%3E">
+    <source src="bg.mp4" type="video/mp4">
+  </video>
+  <div class="video-overlay"></div>
+
+  <div id="app">
+    <header class="ribbon">
+      <button id="menu" aria-label="Toggle chat history">☰</button>
+      <div class="logo">
+        <img src="bg2.png" alt="Logo">
       </div>
-      <form id="loginForm" autocomplete="on">
-        <label for="lu">Username</label><input type="text" id="lu" autocomplete="username" required>
-        <label for="lp">Password</label><input type="password" id="lp" autocomplete="current-password" required>
-        <button class="primary" type="submit">Log in</button>
-      </form>
-      <form id="signupForm" autocomplete="on" hidden>
-        <label for="sn">Full name</label><input type="text" id="sn" autocomplete="name" required>
-        <label for="su">Username</label><input type="text" id="su" autocomplete="username" required>
-        <label for="sp">Password (min. 6 characters)</label><input type="password" id="sp" autocomplete="new-password" required>
-        <label for="sp2">Confirm password</label><input type="password" id="sp2" autocomplete="new-password" required>
-        <button class="primary" type="submit">Create account</button>
-      </form>
-      <p class="msg-err" id="authMsg" role="alert"></p>
-      <p class="fine">Demo accounts are saved only in this browser. Do not reuse a real password from another site.</p>
+      <b>InterviewCoach</b>
+      <span class="sp"></span>
+      <button class="rbtn ghost" id="gemBtn" title="Gemini settings">⚙ Gemini</button>
+    </header>
+    <div class="body">
+      <aside id="side">
+        <button id="newChat">＋ New chat</button>
+        <div class="htitle">Chat history</div>
+        <ul id="hist"></ul>
+        <div class="sidefoot">
+          <div class="n" style="font-size:.8rem;font-weight:400;color:var(--text-secondary);white-space:normal">
+            Chats are saved in this browser only.
+          </div>
+        </div>
+      </aside>
+      <main>
+        <div id="log" role="log" aria-live="polite">
+          <div class="col" id="col"></div>
+        </div>
+        <div class="composer">
+          <form id="form">
+            <textarea id="input" rows="1" placeholder="Ask an interview question…" aria-label="Your question"></textarea>
+            <button id="send" type="submit" aria-label="Send">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left:-2px"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+            </button>
+          </form>
+          <div class="disc">General interview guidance only. Each company hires differently.</div>
+        </div>
+      </main>
     </div>
   </div>
-</section>
 
-<!-- ============ CHAT APP ============ -->
-<div id="app" hidden>
-  <header class="ribbon">
-    <button id="menu" aria-label="Toggle chat history">☰</button>
-    <div class="logo"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#185abd" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></div>
-    <b>InterviewCoach</b>
-    <span class="sp"></span>
-    <span class="chip" id="chipName"></span>
-    <button class="rbtn ghost" id="gemBtn" title="Gemini settings">⚙ Gemini</button>
-    <button class="rbtn" id="logout1">Log out</button>
-  </header>
-  <div class="body">
-    <aside id="side">
-      <button id="newChat">＋ New chat</button>
-      <div class="htitle">Chat history</div>
-      <ul id="hist"></ul>
-      <div class="sidefoot">
-        <div class="av" id="avatar"></div><div class="n" id="sideName"></div>
-        <button id="logout2">Log out</button>
-      </div>
-    </aside>
-    <main>
-      <div id="log" role="log" aria-live="polite"><div class="col" id="col"></div></div>
-      <div class="composer">
-        <form id="form">
-          <textarea id="input" rows="1" placeholder="Ask an interview question…" aria-label="Your question"></textarea>
-          <button id="send" type="submit" aria-label="Send">➤</button>
-        </form>
-        <div class="disc">General interview guidance only. Each company hires differently.</div>
-      </div>
-    </main>
-  </div>
-</div>
+  <dialog id="gemDlg">
+    <h3>Gemini settings</h3>
+    <p class="fine" style="margin-top:0">
+      When on, Gemini rewrites the matching answer from the dataset into a short, friendly reply. It only sees the matched dataset row, so it stays on topic. Off or on error: you get the dataset answer.
+    </p>
+    <label for="gKey">Gemini API key</label>
+    <input type="password" id="gKey" autocomplete="off" placeholder="Paste your key from Google AI Studio">
+    <label for="gModel">Model name</label>
+    <input type="text" id="gModel" placeholder="e.g. gemini-3.5-flash">
+    <p class="fine">
+      The key is saved only in this browser for your account. It is never part of the repository. Anyone using this browser can see it, so use a free key and revoke it after the demo.
+    </p>
+    <p class="msg-err" id="gMsg"></p>
+    <div class="row2">
+      <button class="primary" id="gSave" style="margin:0;flex:1">Save</button>
+      <button class="sec" id="gOff">Turn off</button>
+      <button class="sec" id="gClose">Close</button>
+    </div>
+  </dialog>
 
-<dialog id="gemDlg">
-  <h3>Gemini settings</h3>
-  <p class="fine" style="margin-top:0">When on, Gemini rewrites the matching answer from the dataset into a short, friendly reply. It only sees the matched dataset row, so it stays on topic. Off or on error: you get the dataset answer.</p>
-  <label for="gKey">Gemini API key</label><input type="password" id="gKey" autocomplete="off" placeholder="Paste your key from Google AI Studio">
-  <label for="gModel">Model name</label><input type="text" id="gModel" placeholder="e.g. gemini-3.5-flash">
-  <p class="fine">The key is saved only in this browser for your account. It is never part of the repository. Anyone using this browser can see it, so use a free key and revoke it after the demo.</p>
-  <p class="msg-err" id="gMsg"></p>
-  <div class="row2"><button class="primary" id="gSave" style="margin:0;flex:1">Save</button><button class="sec" id="gOff">Turn off &amp; clear key</button><button class="sec" id="gClose">Close</button></div>
-</dialog>
+  <script>
+    const DATA = [
+      {"q": "Tell me about a recent project you are proud of and your role in it.", "a": "Choose a project where you can clearly explain your own part, such as a final year project, an internship task or a personal app. Describe the problem, the technologies you used, what you personally did, and the result. Personal projects outside class are a big plus because they show passion for IT."},
+      {"q": "Tell me about a time you could not solve a problem. What did you do?", "a": "Be honest about the situation and what blocked you. Then explain your next steps, such as searching documentation, asking a senior or teammate, or escalating the issue properly. Interviewers want to see that you stay calm, find help, and learn from it."},
+      {"q": "How do you deal with deadlines?", "a": "Explain how you plan your work, for example by breaking a project into small tasks with their own dates and checking your progress often. Give an example of a tight deadline you met. If a deadline was ever missed, explain how you informed the team early and what you changed afterwards."},
+      {"q": "What preparations do you do before starting a project?", "a": "Explain your steps, such as understanding the requirements, asking questions, researching suitable tools, planning tasks and setting up version control like Git. Mention whether you plan alone or with the team. This shows you are organised and do not just jump straight into coding."},
+      {"q": "Why did you decide to go into IT?", "a": "Explain what genuinely attracts you to IT, such as solving problems, building things with code, or always learning something new. Give a short real example, like the first program or website you made. Then link that interest to why you want this particular role."},
+      {"q": "How do you stay up to date with new technology?", "a": "Mention the real ways you keep learning, such as online courses, tech blogs, YouTube channels, newsletters, podcasts or tech communities. Give one recent thing you learned. This shows you are curious and will keep improving."},
+      {"q": "What would you do if you were in charge of the whole organisation’s technology?", "a": "Show that you can think beyond your own tasks. Share a simple vision, such as improving security, moving systems to the cloud or automating manual work, and explain how you would plan it step by step. This shows leadership potential and a growth mindset."},
+      {"q": "What do you think is the most pressing problem in tech today and how would you fix it?", "a": "Pick one issue you understand well, such as cybersecurity threats, data privacy or the misuse of AI. Explain why it matters to people and businesses, then suggest a clear and realistic solution. This shows big-picture thinking and problem-solving skills."},
+      {"q": "What is your troubleshooting process?", "a": "Use clear steps: first identify the problem and ask questions, then find the cause, test a possible fix, confirm the problem is solved, and finally document what happened. Give a simple example, such as fixing a user’s internet connection."},
+      {"q": "What is an IP address?", "a": "An IP address is a unique number given to every device on a network, such as a laptop or phone, like a home address for computers. It lets devices find and send data to each other over the internet or a local network. An IPv4 address looks like 192.168.1.10."},
+      {"q": "Are you currently working on any personal projects?", "a": "Talk about a project you built in your own time, such as a website, mobile app, game or small tool, and share the GitHub link if you have one. Explain what it does, the technologies you used, and what you learned from it. Employers like personal projects because they show you enjoy coding outside of work or class."},
+      {"q": "How would you explain a technical concept to someone without technical knowledge?", "a": "Avoid jargon and use simple everyday comparisons, such as describing DNS as the internet’s phone book. Check that the person understands by asking questions, and use pictures, diagrams or mock-ups if they help. Give an example, such as explaining your project to a lecturer or helping a family member with their phone."},
+      {"q": "What is a CPU?", "a": "The CPU, or Central Processing Unit, is the main chip that processes instructions in a computer, often called its brain. It runs programs by doing calculations and controlling other parts. Its speed and number of cores affect how fast a computer can work."},
+      {"q": "How would you move a file using the command line?", "a": "On Windows Command Prompt, use the move command, for example: move report.txt D:\\backup. On Linux or macOS, use the mv command, for example: mv report.txt /home/user/backup/. If you are unsure in an interview, explain how you would check the help or documentation."},
+      {"q": "How familiar are you with different operating systems?", "a": "Check the job description to see which systems they use, such as Windows, Linux or macOS. Be honest about which ones you have used and for what, such as Linux for servers or Windows for user support. Show that you are willing to learn any system you know less about."},
+      {"q": "How would you make sure a computer network is secure?", "a": "Mention key tools such as firewalls, secure router settings, VPNs and antivirus software. Add good habits like strong passwords, multi-factor authentication, regular software updates and backups. If you have any real security experience, share it as an example."},
+      {"q": "What software or technologies do you use now, which have you learned before, and how did you learn them?", "a": "Be honest about the tools you know, such as Python, Java, SQL, Git or a cloud platform, and say where you learned them, for example in university courses, online courses or your own projects. Mention any certifications or training you have done. Most importantly, show that you can learn and apply new tools quickly."},
+      {"q": "How does your IT work fit into your company’s overall goals?", "a": "Show that you understand IT supports the whole company, not just your own tasks. Give an example, such as a system you built that saves another department time or keeps customer data safe. Explain that you work with other departments to understand what they need, so your work supports the company’s goals."},
+      {"q": "Which coding language are you most comfortable with?", "a": "Name the languages you know, pick the one you use most, and explain why. For example, say you are most comfortable with Python because you used it in many class projects and your final year project. Give a short example of something you built with it."},
+      {"q": "A website is loading slowly. How would you investigate?", "a": "First check whether it is slow for everyone or just one user. Use the browser’s developer tools to see which files or requests take the longest, and check the server’s CPU, memory and network use. Common causes include slow database queries, large images and too much traffic."},
+      {"q": "When is it appropriate to denormalise a database design?", "a": "Normalisation means organising database tables to avoid duplicate data. Denormalisation is the opposite: adding some duplicate data on purpose so the database can read data faster. It should only be used when performance or scalability needs are important enough to justify the trade-off, such as a reporting system that reads data much more often than it updates it."},
+      {"q": "What is the role of continuous integration (CI) in the automated build process?", "a": "CI means developers merge code into a shared repository often, and each merge is checked by an automated build so problems are caught early."},
+      {"q": "What technical certifications do you have?", "a": "List the certifications that are relevant to the position. Examples include CompTIA, Cisco (CCNA), AWS or Microsoft certificates, or online course certificates from platforms like Coursera. If you don’t have one yet, be honest and mention any certification you are currently studying for."},
+      {"q": "How did your education prepare you for this job?", "a": "Mention the courses, projects and training from your studies that match the job, such as programming, databases or networking subjects. Connect your relevant coursework, training and academic achievements to the role. For example, explain how your final year project or group assignments taught you skills the company needs, like teamwork, Git or problem-solving."},
+      {"q": "What is your experience with web development, including HTML, CSS and JavaScript?", "a": "Be honest about your level and give real examples. Explain that HTML builds the structure of a page, CSS styles it and JavaScript makes it interactive. Mention something you built, such as a portfolio website or a class project, and any frameworks you have tried."},
+      {"q": "What is your experience with software development methods such as Agile or Waterfall?", "a": "Agile means working in short cycles called sprints, with regular feedback and changes along the way. Waterfall means finishing each phase, such as planning, design, coding and testing, in order before moving to the next. Mention which one you have used, for example a group project where you planned tasks in sprints on a GitHub or Trello board."},
+      {"q": "Have you ever made a mistake on a technical project? What did you do to fix it?", "a": "Choose a real but manageable mistake, such as pushing buggy code or deleting a file by accident. Take ownership, explain how you fixed it quickly, for example by rolling back with Git, and what you changed so it would not happen again, such as testing before pushing."},
+      {"q": "How do you see new AI technology, like ChatGPT, affecting the IT industry?", "a": "Give a balanced view. AI can help IT workers write code faster, answer users and automate repetitive tasks, but it can also make mistakes and raises concerns about data privacy and security. Explain that IT professionals still need strong skills to check AI output and use it responsibly."},
+      {"q": "Are there any areas of IT you would like to learn more about?", "a": "Name one or two areas that genuinely interest you, such as cloud computing, cybersecurity or data analytics, and explain why. Mention what you are already doing to learn, such as an online course or a personal project. If possible, link it to the company’s work."},
+      {"q": "How would you debug a program that is not working?", "a": "First read the error message and try to repeat the problem. Then narrow down where it happens using print statements or a debugger with breakpoints, and check any recent changes. Fix one thing at a time and test again after each change."},
+      {"q": "What is the difference between Git and GitHub?", "a": "Git is a version control tool installed on your computer that tracks changes to your code. GitHub is a website that stores Git projects online, so teams can share code and use pull requests, issues and project boards. You can use Git without GitHub, but GitHub is built on Git."},
+      {"q": "A user cannot log in. What would you check first?", "a": "Start with the simple causes: correct username, Caps Lock, an expired password or a locked account. Then check whether other users have the same problem, which could mean the server or network is down. Reset the password if needed following the company’s security steps, and record what you did."},
+      {"q": "An API request is failing. How would you debug it?", "a": "Read the error message and HTTP status code: 404 usually means a wrong URL, 401 means a login or key problem, and 500 means an error on the server. Test the request in a tool like Postman, check that the data format and API key are correct, and look at the server logs and any recent code changes."}
+    ];
+    
+    const MIN_SCORE = 0.15; 
+    
+    const SYSTEM_PROMPT = "You are InterviewCoach, a friendly HR assistant that gives interview tips. " +
+      "Use the dataset context provided to give the user a helpful answer. " +
+      "If the user is sharing personal experience or asking a follow-up question, acknowledge their input and provide supportive advice. " +
+      "Keep your answer in 3-5 short sentences, in simple English. " +
+      "General guidance only; never promise a job outcome.";
 
-<script>
-/* ===== Dataset (same content as data/interview_tips.csv) ===== */
-const DATA = [{"q": "Tell me about a recent project you are proud of and your role in it.", "a": "Choose a project where you can clearly explain your own part, such as a final year project, an internship task or a personal app. Describe the problem, the technologies you used, what you personally did, and the result. Personal projects outside class are a big plus because they show passion for IT."}, {"q": "Tell me about a time you could not solve a problem. What did you do?", "a": "Be honest about the situation and what blocked you. Then explain your next steps, such as searching documentation, asking a senior or teammate, or escalating the issue properly. Interviewers want to see that you stay calm, find help, and learn from it."}, {"q": "How do you deal with deadlines?", "a": "Explain how you plan your work, for example by breaking a project into small tasks with their own dates and checking your progress often. Give an example of a tight deadline you met. If a deadline was ever missed, explain how you informed the team early and what you changed afterwards."}, {"q": "What preparations do you do before starting a project?", "a": "Explain your steps, such as understanding the requirements, asking questions, researching suitable tools, planning tasks and setting up version control like Git. Mention whether you plan alone or with the team. This shows you are organised and do not just jump straight into coding."}, {"q": "Why did you decide to go into IT?", "a": "Explain what genuinely attracts you to IT, such as solving problems, building things with code, or always learning something new. Give a short real example, like the first program or website you made. Then link that interest to why you want this particular role."}, {"q": "How do you stay up to date with new technology?", "a": "Mention the real ways you keep learning, such as online courses, tech blogs, YouTube channels, newsletters, podcasts or tech communities. Give one recent thing you learned. This shows you are curious and will keep improving."}, {"q": "What would you do if you were in charge of the whole organisation’s technology?", "a": "Show that you can think beyond your own tasks. Share a simple vision, such as improving security, moving systems to the cloud or automating manual work, and explain how you would plan it step by step. This shows leadership potential and a growth mindset."}, {"q": "What do you think is the most pressing problem in tech today and how would you fix it?", "a": "Pick one issue you understand well, such as cybersecurity threats, data privacy or the misuse of AI. Explain why it matters to people and businesses, then suggest a clear and realistic solution. This shows big-picture thinking and problem-solving skills."}, {"q": "What is your troubleshooting process?", "a": "Use clear steps: first identify the problem and ask questions, then find the cause, test a possible fix, confirm the problem is solved, and finally document what happened. Give a simple example, such as fixing a user’s internet connection."}, {"q": "What is an IP address?", "a": "An IP address is a unique number given to every device on a network, such as a laptop or phone, like a home address for computers. It lets devices find and send data to each other over the internet or a local network. An IPv4 address looks like 192.168.1.10."}, {"q": "Are you currently working on any personal projects?", "a": "Talk about a project you built in your own time, such as a website, mobile app, game or small tool, and share the GitHub link if you have one. Explain what it does, the technologies you used, and what you learned from it. Employers like personal projects because they show you enjoy coding outside of work or class."}, {"q": "How would you explain a technical concept to someone without technical knowledge?", "a": "Avoid jargon and use simple everyday comparisons, such as describing DNS as the internet’s phone book. Check that the person understands by asking questions, and use pictures, diagrams or mock-ups if they help. Give an example, such as explaining your project to a lecturer or helping a family member with their phone."}, {"q": "What is a CPU?", "a": "The CPU, or Central Processing Unit, is the main chip that processes instructions in a computer, often called its brain. It runs programs by doing calculations and controlling other parts. Its speed and number of cores affect how fast a computer can work."}, {"q": "How would you move a file using the command line?", "a": "On Windows Command Prompt, use the move command, for example: move report.txt D:\\backup. On Linux or macOS, use the mv command, for example: mv report.txt /home/user/backup/. If you are unsure in an interview, explain how you would check the help or documentation."}, {"q": "How familiar are you with different operating systems?", "a": "Check the job description to see which systems they use, such as Windows, Linux or macOS. Be honest about which ones you have used and for what, such as Linux for servers or Windows for user support. Show that you are willing to learn any system you know less about."}, {"q": "How would you make sure a computer network is secure?", "a": "Mention key tools such as firewalls, secure router settings, VPNs and antivirus software. Add good habits like strong passwords, multi-factor authentication, regular software updates and backups. If you have any real security experience, share it as an example."}, {"q": "What software or technologies do you use now, which have you learned before, and how did you learn them?", "a": "Be honest about the tools you know, such as Python, Java, SQL, Git or a cloud platform, and say where you learned them, for example in university courses, online courses or your own projects. Mention any certifications or training you have done. Most importantly, show that you can learn and apply new tools quickly."}, {"q": "How does your IT work fit into your company’s overall goals?", "a": "Show that you understand IT supports the whole company, not just your own tasks. Give an example, such as a system you built that saves another department time or keeps customer data safe. Explain that you work with other departments to understand what they need, so your work supports the company’s goals."}];
-const FALLBACK = "I can only help with interview tips. Try asking about deadlines, troubleshooting, handling problems, personal projects or basic IT questions.";
-const MIN_SCORE = 0.35;
-const SUGGEST = [
-  "How do you deal with deadlines?",
-  "What is your troubleshooting process?",
-  "Why did you decide to go into IT?",
-  "How would you make sure a computer network is secure?"
-];
+    const FALLBACK = "I can only help with interview tips. Try asking about deadlines, troubleshooting, handling problems, personal projects or basic IT questions.";
+    const SUGGEST = [
+      "How do you deal with deadlines?",
+      "What is your troubleshooting process?",
+      "Why did you decide to go into IT?",
+      "How would you make sure a computer network is secure?"
+    ];
 
-/* ===== Retrieval: TF-IDF cosine similarity in plain JavaScript ===== */
-const STOP = new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what how why when which who would could should can will about tell if it its this that as at by from into than then so not no any have has had today now".split(" "));
-function tokens(t){
-  return (t.toLowerCase().match(/[a-z0-9]+/g) || [])
-    .filter(w => w.length > 1 && !STOP.has(w))
-    .map(w => (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) ? w.slice(0,-1) : w);
-}
-const docs = DATA.map(d => tokens(d.q + " " + d.q + " " + d.a));
-const df = {}; docs.forEach(d => new Set(d).forEach(w => df[w] = (df[w]||0) + 1));
-const idf = {}; Object.keys(df).forEach(w => idf[w] = Math.log((1 + docs.length) / (1 + df[w])) + 1);
-function vec(toks){
-  const tf = {}; toks.forEach(w => tf[w] = (tf[w]||0) + 1);
-  const v = {}; let n = 0;
-  for (const w in tf) if (idf[w]){ v[w] = tf[w]*idf[w]; n += v[w]*v[w]; }
-  n = Math.sqrt(n) || 1; for (const w in v) v[w] /= n; return v;
-}
-const vecs = docs.map(vec);
-function search(q){
-  const qv = vec(tokens(q)); let best = {score:0,i:-1};
-  vecs.forEach((dv,i) => { let s = 0; for (const w in qv) if (dv[w]) s += qv[w]*dv[w]; if (s > best.score) best = {score:s,i}; });
-  return best;
-}
-/* ===== Gemini step: rewrites the retrieved dataset answer (RAG) ===== */
-const GEMINI_URL = m => "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(m) + ":generateContent";
-const SYSTEM_PROMPT = "You are InterviewCoach, a friendly HR assistant that gives interview tips. " +
-  "Use ONLY the dataset answer provided as context. Rewrite it clearly for the user's exact question, " +
-  "in 3-5 short sentences, in simple English. Do not add facts that are not in the context. " +
-  "General guidance only; never promise a job outcome.";
-function gemSettings(){ return load("ic_gemini_" + me, null); }
-async function callLLM(question, row){
-  const g = gemSettings(); if (!g || !g.key || !g.model) return null;
-  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 15000);
-  try {
-    const r = await fetch(GEMINI_URL(g.model), {
-      method: "POST", signal: ctrl.signal,
-      headers: {"Content-Type": "application/json", "x-goog-api-key": g.key},
-      body: JSON.stringify({
-        systemInstruction: {parts: [{text: SYSTEM_PROMPT}]},
-        contents: [{role: "user", parts: [{text: "Dataset context:\nQ: " + row.q + "\nA: " + row.a + "\n\nUser question: " + question}]}],
-        generationConfig: {temperature: 0.4, maxOutputTokens: 400}
-      })
+    const STOP = new Set("a an the and or of to in on for with is are was were be been do does did you your i me my we what how why when which who would could should can will about tell if it its this that as at by from into than then so not no any have has had today now".split(" "));
+    function tokens(t) {
+      return (t.toLowerCase().match(/[a-z0-9]+/g) || [])
+        .filter(w => w.length > 1 && !STOP.has(w))
+        .map(w => (w.length > 3 && w.endsWith("s") && !w.endsWith("ss")) ? w.slice(0, -1) : w);
+    }
+    const docs = DATA.map(d => tokens(d.q + " " + d.q + " " + d.a));
+    const df = {};
+    docs.forEach(d => new Set(d).forEach(w => df[w] = (df[w] || 0) + 1));
+    const idf = {};
+    Object.keys(df).forEach(w => idf[w] = Math.log((1 + docs.length) / (1 + df[w])) + 1);
+    function vec(toks) {
+      const tf = {};
+      toks.forEach(w => tf[w] = (tf[w] || 0) + 1);
+      const v = {};
+      let n = 0;
+      for (const w in tf) if (idf[w]) { v[w] = tf[w] * idf[w]; n += v[w] * v[w]; }
+      n = Math.sqrt(n) || 1;
+      for (const w in v) v[w] /= n;
+      return v;
+    }
+    const vecs = docs.map(vec);
+    function search(q) {
+      const qv = vec(tokens(q));
+      let best = { score: 0, i: -1 };
+      vecs.forEach((dv, i) => {
+        let s = 0;
+        for (const w in qv) if (dv[w]) s += qv[w] * dv[w];
+        if (s > best.score) best = { score: s, i };
+      });
+      return best;
+    }
+
+    const GEMINI_URL = m => "https://generativelanguage.googleapis.com/v1beta/models/" + encodeURIComponent(m) + ":generateContent";
+    
+    function gemSettings() { return load("ic_gemini", null); }
+    async function callLLM(question, row) {
+      const g = gemSettings();
+      if (!g || !g.key || !g.model) return null;
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), 15000);
+      try {
+        const r = await fetch(GEMINI_URL(g.model), {
+          method: "POST",
+          signal: ctrl.signal,
+          headers: { "Content-Type": "application/json", "x-goog-api-key": g.key },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: [{ role: "user", parts: [{ text: "Dataset context:\nQ: " + row.q + "\nA: " + row.a + "\n\nUser question: " + question }] }],
+            generationConfig: { temperature: 0.5, maxOutputTokens: 400 }
+          })
+        });
+        if (!r.ok) return null;
+        const d = await r.json();
+        const t = d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts.map(p => p.text || "").join("").trim();
+        return t || null;
+      } catch (e) { return null; } finally { clearTimeout(timer); }
+    }
+    
+    async function getAnswer(q) {
+      const hit = search(q);
+      if (hit.i < 0) return { answer: FALLBACK };
+      
+      const row = DATA[hit.i];
+      let text = null;
+      try { text = await callLLM(q, row); } catch (e) { }
+      return { answer: text || row.a, source: row.q + (text ? "  ·  refined by Gemini" : "") };
+    }
+
+    const $ = id => document.getElementById(id);
+    function load(k, def) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch (e) { return def; } }
+    function save(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch (e) { return false; } }
+    function drop(k) { try { localStorage.removeItem(k); } catch (e) { } }
+
+    let chats = load("ic_chats", []), current = null, busy = false;
+    const persist = () => save("ic_chats", chats);
+    function getChat() { return chats.find(c => c.id === current); }
+    
+    function renderHist() {
+      const ul = $("hist");
+      ul.innerHTML = "";
+      if (!chats.length) {
+        const p = document.createElement("li");
+        p.className = "empty-h";
+        p.textContent = "No chats yet. Ask your first question!";
+        ul.appendChild(p);
+        return;
+      }
+      [...chats].sort((a, b) => b.updated - a.updated).forEach(c => {
+        const li = document.createElement("li");
+        if (c.id === current) li.className = "on";
+        const t = document.createElement("button");
+        t.className = "t"; t.textContent = c.title; t.title = c.title;
+        t.onclick = () => { current = c.id; renderHist(); renderChat(); $("side").classList.remove("open"); };
+        const x = document.createElement("button");
+        x.className = "x"; x.textContent = "✕"; x.setAttribute("aria-label", "Delete chat");
+        x.onclick = () => {
+          if (!confirm("Delete this chat?")) return;
+          chats = chats.filter(k => k.id !== c.id);
+          if (current === c.id) current = null;
+          persist(); renderHist(); renderChat();
+        };
+        li.append(t, x); ul.appendChild(li);
+      });
+    }
+    
+    function botAvatar() {
+      const d = document.createElement("div");
+      d.className = "bav";
+      d.innerHTML = '<img src="bg2.png" alt="Bot">';
+      return d;
+    }
+    
+    function row(role, text, source) {
+      const r = document.createElement("div");
+      r.className = "row " + role;
+      const t = document.createElement("div");
+      t.className = "txt"; t.textContent = text;
+      if (source) {
+        const s = document.createElement("span");
+        s.className = "src"; s.textContent = "Based on: " + source;
+        t.appendChild(s);
+      }
+      if (role === "bot") r.appendChild(botAvatar());
+      r.appendChild(t);
+      return r;
+    }
+    
+    function renderChat() {
+      const col = $("col");
+      col.innerHTML = "";
+      const c = getChat();
+      if (!c || !c.messages.length) {
+        const w = document.createElement("div");
+        w.className = "welcome";
+        w.innerHTML = '<div class="logo"><img src="bg2.png" alt="Logo"></div><h2></h2><p>Ask me how to answer common interview questions.</p><div class="cards"></div>';
+        w.querySelector("h2").textContent = "Hello! Ready for your interview?";
+        SUGGEST.forEach(q => {
+          const b = document.createElement("button");
+          b.className = "cardbtn"; b.textContent = q;
+          b.onclick = () => send(q);
+          w.querySelector(".cards").appendChild(b);
+        });
+        col.appendChild(w);
+        return;
+      }
+      c.messages.forEach(m => col.appendChild(row(m.role, m.text, m.source)));
+      $("log").scrollTop = $("log").scrollHeight;
+    }
+    
+    async function send(q) {
+      q = q.trim();
+      if (!q || busy) return;
+      busy = true;
+      $("send").disabled = true;
+      
+      let c = getChat();
+      if (!c) {
+        c = { id: "c" + Date.now(), title: q.length > 40 ? q.slice(0, 40) + "…" : q, updated: Date.now(), messages: [] };
+        chats.push(c);
+        current = c.id;
+      }
+      
+      c.messages.push({ role: "user", text: q });
+      c.updated = Date.now();
+      persist(); renderHist(); renderChat();
+      
+      const typing = row("bot", "");
+      typing.querySelector(".txt").innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
+      $("col").appendChild(typing);
+      $("log").scrollTop = $("log").scrollHeight;
+      
+      await new Promise(r => setTimeout(r, 450));
+      const a = await getAnswer(q);
+      c.messages.push({ role: "bot", text: a.answer, source: a.source });
+      c.updated = Date.now();
+      persist();
+      
+      if (current === c.id) renderChat();
+      renderHist();
+      busy = false;
+      $("send").disabled = false;
+      $("input").focus();
+    }
+    
+    $("form").addEventListener("submit", e => {
+      e.preventDefault();
+      const v = $("input").value;
+      $("input").value = "";
+      $("input").style.height = "auto";
+      send(v);
     });
-    if (!r.ok) return null;
-    const d = await r.json();
-    const t = d.candidates && d.candidates[0] && d.candidates[0].content && d.candidates[0].content.parts.map(p => p.text || "").join("").trim();
-    return t || null;
-  } catch(e){ return null; } finally { clearTimeout(timer); }
-}
-async function getAnswer(q){
-  const hit = search(q);
-  if (hit.i < 0 || hit.score < MIN_SCORE) return {answer: FALLBACK};
-  const row = DATA[hit.i]; let text = null;
-  try { text = await callLLM(q, row); } catch(e){}
-  return {answer: text || row.a, source: row.q + (text ? "  ·  refined by Gemini" : "")};
-}
+    
+    $("input").addEventListener("keydown", e => {
+      if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); $("form").requestSubmit(); }
+    });
+    
+    $("input").addEventListener("input", e => {
+      e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px";
+    });
+    
+    $("newChat").onclick = () => {
+      current = null; renderHist(); renderChat(); $("side").classList.remove("open"); $("input").focus();
+    };
+    
+    $("menu").onclick = () => $("side").classList.toggle("open");
+    $("log").addEventListener("click", () => $("side").classList.remove("open"));
 
-/* ===== Storage helpers (localStorage, always guarded) ===== */
-const $ = id => document.getElementById(id);
-function load(k, def){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : def; } catch(e){ return def; } }
-function save(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } }
-function drop(k){ try { localStorage.removeItem(k); } catch(e){} }
+    function gemBadge() {
+      const g = gemSettings();
+      $("gemBtn").textContent = (g && g.key) ? "⚙ Gemini: ON" : "⚙ Gemini: off";
+    }
+    $("gemBtn").onclick = () => {
+      const g = gemSettings() || {};
+      $("gKey").value = g.key || "";
+      $("gModel").value = g.model || "gemini-3.5-flash";
+      $("gMsg").textContent = "";
+      $("gemDlg").showModal();
+    };
+    $("gClose").onclick = () => $("gemDlg").close();
+    $("gSave").onclick = () => {
+      const key = $("gKey").value.trim(), model = $("gModel").value.trim();
+      if (!key || !model) { $("gMsg").textContent = "Enter both the API key and the model name."; return; }
+      save("ic_gemini", { key, model }); gemBadge(); $("gemDlg").close();
+    };
+    $("gOff").onclick = () => { drop("ic_gemini"); gemBadge(); $("gemDlg").close(); };
 
-/* ===== Accounts ===== */
-async function hashPw(pw, salt){
-  const data = new TextEncoder().encode(salt + ":" + pw);
-  if (window.crypto && crypto.subtle){
-    const buf = await crypto.subtle.digest("SHA-256", data);
-    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
-  }
-  let h = 5381; data.forEach(b => h = ((h << 5) + h + b) >>> 0); return "x" + h;   // fallback
-}
-function newSalt(){ return Math.random().toString(36).slice(2) + Date.now().toString(36); }
-function setAuthMsg(t){ $("authMsg").textContent = t || ""; }
-function showTab(login){
-  $("loginForm").hidden = !login; $("signupForm").hidden = login;
-  $("tabLogin").setAttribute("aria-selected", login); $("tabSignup").setAttribute("aria-selected", !login);
-  setAuthMsg("");
-}
-$("tabLogin").onclick = () => showTab(true);
-$("tabSignup").onclick = () => showTab(false);
-
-$("signupForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const name = $("sn").value.trim(), user = $("su").value.trim().toLowerCase(), pw = $("sp").value;
-  if (!/^[a-z0-9_.-]{3,20}$/.test(user)) return setAuthMsg("Username: 3–20 letters, numbers, . _ or -");
-  if (pw.length < 6) return setAuthMsg("Password must be at least 6 characters.");
-  if (pw !== $("sp2").value) return setAuthMsg("Passwords do not match.");
-  const users = load("ic_users", {});
-  if (users[user]) return setAuthMsg("That username is already taken.");
-  const salt = newSalt();
-  users[user] = {name, salt, hash: await hashPw(pw, salt)};
-  if (!save("ic_users", users)) return setAuthMsg("Could not save the account (browser storage is blocked).");
-  save("ic_session", user); startApp(user);
-});
-$("loginForm").addEventListener("submit", async e => {
-  e.preventDefault();
-  const user = $("lu").value.trim().toLowerCase(), u = load("ic_users", {})[user];
-  if (!u || u.hash !== await hashPw($("lp").value, u.salt)) return setAuthMsg("Wrong username or password.");
-  save("ic_session", user); startApp(user);
-});
-function logout(){
-  drop("ic_session"); me = null; chats = []; current = null;
-  $("app").hidden = true; $("auth").hidden = false;
-  $("loginForm").reset(); $("signupForm").reset(); showTab(true);
-}
-$("logout1").onclick = logout; $("logout2").onclick = logout;
-
-/* ===== Chat state (saved per user) ===== */
-let me = null, chats = [], current = null, busy = false;
-const chatKey = () => "ic_chats_" + me;
-const persist = () => save(chatKey(), chats);
-function startApp(user){
-  me = user; const u = load("ic_users", {})[user] || {name: user};
-  chats = load(chatKey(), []); current = null;
-  $("chipName").textContent = u.name; $("sideName").textContent = u.name;
-  $("avatar").textContent = u.name.trim().charAt(0).toUpperCase();
-  setAuthMsg(""); $("auth").hidden = true; $("app").hidden = false; gemBadge();
-  renderHist(); renderChat(); $("input").focus();
-}
-function getChat(){ return chats.find(c => c.id === current); }
-function renderHist(){
-  const ul = $("hist"); ul.innerHTML = "";
-  if (!chats.length){ const p = document.createElement("li"); p.className = "empty-h"; p.textContent = "No chats yet. Ask your first question!"; ul.appendChild(p); return; }
-  [...chats].sort((a,b) => b.updated - a.updated).forEach(c => {
-    const li = document.createElement("li"); if (c.id === current) li.className = "on";
-    const t = document.createElement("button"); t.className = "t"; t.textContent = c.title; t.title = c.title;
-    t.onclick = () => { current = c.id; renderHist(); renderChat(); $("side").classList.remove("open"); };
-    const x = document.createElement("button"); x.className = "x"; x.textContent = "✕"; x.setAttribute("aria-label", "Delete chat");
-    x.onclick = () => { if (!confirm("Delete this chat?")) return; chats = chats.filter(k => k.id !== c.id); if (current === c.id) current = null; persist(); renderHist(); renderChat(); };
-    li.append(t, x); ul.appendChild(li);
-  });
-}
-function botAvatar(){ const d = document.createElement("div"); d.className = "bav"; d.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg>'; return d; }
-function row(role, text, source){
-  const r = document.createElement("div"); r.className = "row " + role;
-  const t = document.createElement("div"); t.className = "txt"; t.textContent = text;
-  if (source){ const s = document.createElement("span"); s.className = "src"; s.textContent = "Based on: " + source; t.appendChild(s); }
-  if (role === "bot") r.appendChild(botAvatar()); r.appendChild(t); return r;
-}
-function renderChat(){
-  const col = $("col"); col.innerHTML = ""; const c = getChat();
-  if (!c || !c.messages.length){
-    const w = document.createElement("div"); w.className = "welcome";
-    const first = (load("ic_users", {})[me] || {name: me}).name.split(" ")[0];
-    w.innerHTML = '<div class="logo"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></div><h2></h2><p>Ask me how to answer common interview questions.</p><div class="cards"></div>';
-    w.querySelector("h2").textContent = "Hello, " + first + "!";
-    SUGGEST.forEach(q => { const b = document.createElement("button"); b.className = "cardbtn"; b.textContent = q; b.onclick = () => send(q); w.querySelector(".cards").appendChild(b); });
-    col.appendChild(w); return;
-  }
-  c.messages.forEach(m => col.appendChild(row(m.role, m.text, m.source)));
-  $("log").scrollTop = $("log").scrollHeight;
-}
-async function send(q){
-  q = q.trim(); if (!q || busy) return; busy = true; $("send").disabled = true;
-  let c = getChat();
-  if (!c){ c = {id: "c" + Date.now(), title: q.length > 40 ? q.slice(0,40) + "…" : q, updated: Date.now(), messages: []}; chats.push(c); current = c.id; }
-  c.messages.push({role: "user", text: q}); c.updated = Date.now(); persist(); renderHist(); renderChat();
-  const typing = row("bot", ""); typing.querySelector(".txt").innerHTML = '<span class="typing"><i></i><i></i><i></i></span>';
-  $("col").appendChild(typing); $("log").scrollTop = $("log").scrollHeight;
-  await new Promise(r => setTimeout(r, 450));
-  const a = await getAnswer(q);
-  c.messages.push({role: "bot", text: a.answer, source: a.source}); c.updated = Date.now(); persist();
-  if (current === c.id) renderChat(); renderHist();
-  busy = false; $("send").disabled = false; $("input").focus();
-}
-$("form").addEventListener("submit", e => { e.preventDefault(); const v = $("input").value; $("input").value = ""; $("input").style.height = "auto"; send(v); });
-$("input").addEventListener("keydown", e => { if (e.key === "Enter" && !e.shiftKey){ e.preventDefault(); $("form").requestSubmit(); } });
-$("input").addEventListener("input", e => { e.target.style.height = "auto"; e.target.style.height = e.target.scrollHeight + "px"; });
-$("newChat").onclick = () => { current = null; renderHist(); renderChat(); $("side").classList.remove("open"); $("input").focus(); };
-$("menu").onclick = () => $("side").classList.toggle("open");
-$("log").addEventListener("click", () => $("side").classList.remove("open"));
-
-/* ===== Gemini settings dialog ===== */
-function gemBadge(){ const g = gemSettings(); $("gemBtn").textContent = (g && g.key) ? "⚙ Gemini: ON" : "⚙ Gemini: off"; }
-$("gemBtn").onclick = () => { const g = gemSettings() || {}; $("gKey").value = g.key || ""; $("gModel").value = g.model || "gemini-3.5-flash"; $("gMsg").textContent = ""; $("gemDlg").showModal(); };
-$("gClose").onclick = () => $("gemDlg").close();
-$("gSave").onclick = () => {
-  const key = $("gKey").value.trim(), model = $("gModel").value.trim();
-  if (!key || !model){ $("gMsg").textContent = "Enter both the API key and the model name."; return; }
-  save("ic_gemini_" + me, {key, model}); gemBadge(); $("gemDlg").close();
-};
-$("gOff").onclick = () => { drop("ic_gemini_" + me); gemBadge(); $("gemDlg").close(); };
-
-/* ===== Start: restore session if the user is still logged in ===== */
-const s = load("ic_session", null);
-if (s && load("ic_users", {})[s]) startApp(s);
-</script>
+    gemBadge(); renderHist(); renderChat();
+  </script>
 </body>
 </html>
