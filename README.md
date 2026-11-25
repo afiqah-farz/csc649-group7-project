@@ -1,9 +1,14 @@
 # CSC649 GROUP PROJECT - GROUP 7
 
-## IT Interview Assistant
-A chatbot designed to help candidates prepare for IT job interviews. it provides interview questions, suggested answers and useful tips to help candidates improve their interview preparations.
+## 1. Project Title
+### InterviewCoach - Interview Assistant
 
-## 1. Team Members
+A domain-specific chatbot designed to help candidates prepare for IT job interviews. It provides interview questions, suggested answers and useful tips to help candidates improve their interview preparations.
+
+## 2. Domain
+The domain for this chatbot is Human Resources (HR).
+
+## 3. Team Members
 
 | No. | Name | GitHub Username | Role |
 |---|---|---|---|
@@ -12,6 +17,27 @@ A chatbot designed to help candidates prepare for IT job interviews. it provides
 | 3 | Famiza | @famizaamira | Backend Developer / Model Integrator |
 | 4 | Arifah | @arifahnajmie | Domain Specialist |
 
-## 2. Domain and Dataset
+## 4. How to Run
+## 5. System Architecture
+## 6. Dataset Description
+The project uses a custom dataset containing interview questions and answers related to IT interview preparation.
 
-Selected Domain: Human Resources (HR)
+The dataset is stored in CSV format and contains the following columns:
+| Column | Description |
+|---|---|
+| Question | Interview question or IT-related question |
+| Answer | Answer or explanation for the question |
+
+The dataset contains 33 question-and-answer pairs covering topics such as:
+- IT interview preparation
+- Project experience
+- Teamwork and deadlines
+- Troubleshooting
+- Basic IT knowledge
+- Web development
+
+The dataset is used to support the chatbot's responses during interview preparation.
+
+## 7. Model Details
+## 8. Limitations
+## 9. GenAI use
