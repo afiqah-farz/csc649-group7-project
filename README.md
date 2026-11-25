@@ -3,10 +3,10 @@
 ## 1. Project Title
 ### InterviewCoach - Interview Assistant
 
-A domain-specific chatbot designed to help candidates prepare for IT job interviews. It provides interview questions, suggested answers and useful tips to help candidates improve their interview preparations.
+InterviewCoach is a domain-specific chatbot designed to help candidates prepare for IT job interviews. It provides interview questions, suggested answers and useful tips to help candidates improve their interview preparations.
 
 ## 2. Domain
-The domain for this chatbot is Human Resources (HR).
+The domain for this chatbot is Human Resources (HR), with focus on IT job interview preparation.
 
 ## 3. Team Members
 
@@ -19,6 +19,7 @@ The domain for this chatbot is Human Resources (HR).
 
 ## 4. How to Run
 ## 5. System Architecture
+![InterviewCoach System Architecture](docs/architecture.png)
 ## 6. Dataset Description
 The project uses a custom dataset containing interview questions and answers related to IT interview preparation.
 
